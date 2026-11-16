@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>مترجم المحاضرات</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:wght@400;700&family=Tajawal:wght@400;700;900&family=Noto+Naskh+Arabic:wght@400;700&family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f4f6f9;--card:#fff;--tx:#1b2430;--mut:#657080;--ac:#0a84d6;--bd:#d9dfe7}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14181d;--card:#1f252c;--tx:#e8edf2;--mut:#9aa6b4;--ac:#4db3ff;--bd:#34404c}}
+:root[data-theme="dark"]{--bg:#14181d;--card:#1f252c;--tx:#e8edf2;--mut:#9aa6b4;--ac:#4db3ff;--bd:#34404c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px Cairo,Tahoma,sans-serif;padding:12px}
+h1{font-size:20px;margin:4px 0 12px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+label{display:flex;flex-direction:column;font-size:12px;color:var(--mut);gap:4px}
+select,input[type=number],input[type=text]{background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:7px;font:inherit}
+input[type=color]{width:100%;height:36px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);padding:2px}
+button{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:10px 14px;font:inherit;font-weight:700;cursor:pointer}
+button.s{background:var(--bd);color:var(--tx)}button:disabled{opacity:.5}
+.drop{border:2px dashed var(--bd);border-radius:12px;padding:18px;text-align:center;color:var(--mut)}
+.row2{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+#st{color:var(--mut);font-size:13px}
+.wrap{overflow-x:auto;background:var(--bg)}
+.page{background:#fff;color:#000;margin:0 auto 14px;box-shadow:0 1px 6px #0003;padding:48px 56px;transform-origin:top center}
+.pgn{font:11px Lato,sans-serif;color:#888;text-align:left;direction:ltr;margin-bottom:10px}
+.ln{margin:0 0 .9em}.ln .en{direction:ltr;text-align:left}.ln .ar{direction:rtl;text-align:right}
+.ln.be{display:flex;justify-content:space-between;gap:20px;align-items:baseline}
+</style></head><body>
+<h1>📘 مترجم المحاضرات — إنكليزي ⟶ عربي</h1>
+<div class="card">
+<div class="drop" id="drop">اسحب الملف هنا أو <label for="f" style="display:inline-block;background:var(--ac);color:#fff;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;flex-direction:row">اختر ملف</label><br><small>PDF · PPTX · DOCX · TXT · MD · HTML · CSV</small>
+<input id="f" type="file" style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden"></div>
+<div class="row2" style="flex-direction:column;align-items:stretch"><textarea id="pt" rows="3" placeholder="أو الصق النص الإنكليزي هنا إذا ما اشتغل اختيار الملف" style="background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:8px;font:inherit"></textarea><button class="s" id="pb">استخدم النص الملصوق</button></div>
+<div class="row2"><button id="go" disabled>ترجم</button><button id="pdf" class="s" disabled>تحميل PDF</button><span id="st">لم يتم اختيار ملف</span></div>
+</div>
+<div class="card"><div class="grid">
+<label>موضع العربي<select id="lay"><option value="above">فوق سطر الإنكليزي</option><option value="below">تحت سطر الإنكليزي</option><option value="beside">بجنب الإنكليزي</option></select></label>
+<label>خط العربي<select id="arF"><option>Tajawal</option><option>Cairo</option><option>Amiri</option><option>Noto Naskh Arabic</option></select></label>
+<label>حجم العربي<input type="number" id="arS" value="20" min="8" max="60"></label>
+<label>لون العربي<input type="color" id="arC" value="#7a5a00"></label>
+<label>نوع خط العربي<select id="arW"><option value="900">أسود (Black)</option><option value="700">عريض</option><option value="400">عادي</option></select></label>
+<label>خط الإنكليزي<select id="enF"><option>Lato</option><option>Merriweather</option><option>Cairo</option></select></label>
+<label>حجم الإنكليزي<input type="number" id="enS" value="20" min="8" max="60"></label>
+<label>لون الإنكليزي<input type="color" id="enC" value="#000000"></label>
+<label>نوع خط الإنكليزي<select id="enW"><option value="400">عادي</option><option value="700">عريض</option></select></label>
+<label>حجم الصفحة<select id="pz"><option value="l">أفقي (سلايد)</option><option value="p">عمودي A4</option></select></label>
+<label>المسافة بين الأسطر<input type="number" id="gap" value="14" min="0" max="60"></label>
+<label>إظهار الإنكليزي<select id="sh"><option value="1">نعم</option><option value="0">لا (عربي فقط)</option></select></label>
+<label>وضع الـPDF<select id="mode"><option value="keep">الأصل محفوظ + العربي فوق الفقرات</option><option value="text">نص فقط (إعادة تنسيق)</option></select></label>
+</div></div>
+<div class="wrap"><div id="out"></div></div>
+<div id="ex" style="position:absolute;left:-99999px;top:0"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="app1.js"></script>
+<script src="app2.js"></script>
+</body></html>
